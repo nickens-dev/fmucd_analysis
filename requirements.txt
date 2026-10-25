@@ -4,3 +4,5 @@ matplotlib>=3.10
 pyarrow>=15
 jupyterlab>=4
 ipykernel>=6
+scikit-learn>=1.4
+joblib>=1.3

@@ -17,6 +17,23 @@ The project will grow through a series of Jupyter notebooks. The first notebook 
 
 The notebook also creates description-only text, descriptions combined with classification context, and training-task aggregate features. Text, clustering features, and duration outcomes are saved separately.
 
+## Notebook sequence
+
+| Notebook | Purpose | Status |
+| --- | --- | --- |
+| [`data_exp.ipynb`](data_exp.ipynb) | Explore, audit, and export task/work-order datasets. | Exploratory analysis |
+| [`embedding.ipynb`](embedding.ipynb) | Compare work-description and context-enhanced text vectors. | Review draft; execution disabled by default |
+| [`clustering.ipynb`](clustering.ipynb) | Compare text, aggregate, and combined task families. | Review draft; execution disabled by default |
+| [`modeling.ipynb`](modeling.ipynb) | Compare duration baselines and models with/without family labels. | Review draft; execution and final test disabled by default |
+
+Run the notebooks in this order. The three review drafts display their plans without starting expensive jobs. Set their `RUN_*` switches when ready, using the same upstream run names. Choose a new run name for each experiment; overwriting requires an explicit switch. Generated artifacts go under `data/embeddings/`, `data/families/`, and `data/modeling/` and remain outside Git.
+
+The default embedding backend is a local TF-IDF/SVD baseline. For pretrained semantic embeddings, install `requirements-embeddings.txt` and select the sentence-transformer backend. Model downloads require an explicit configuration change. Duration models initially use bounded samples; the manifests record sample sizes. Optional ANN fitting and final test evaluation require separate switches.
+
+The drafts fit transformations and clusters using training tasks only and verify upstream artifact fingerprints. Aggregate profiles are unavailable for unseen tasks, which remain unassigned for aggregate-based families. Modeling reports that coverage alongside known/unseen-task errors. Test outcomes are opened only after an explicit candidate is locked.
+
+The notebooks use short code cells, direct tables/plots, and brief purpose/result notes. For the ten-minute presentation, the main story is the duration distribution, sparse descriptions, a few representative families, and the model comparison. The remaining checks support those choices and can be kept as backup material.
+
 ## Planned analyses
 
 - Compare text embeddings with and without system, subsystem, and component descriptions.
@@ -46,6 +63,10 @@ fmucd_analysis/
 ├── README.md
 ├── requirements.txt
 ├── data_exp.ipynb
+├── embedding.ipynb
+├── clustering.ipynb
+├── modeling.ipynb
+├── pipeline_utils.py
 └── data/
     ├── README.md
     ├── FMUCD.csv            # Download separately; not versioned

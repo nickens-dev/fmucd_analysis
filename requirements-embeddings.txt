@@ -1,0 +1,4 @@
+-r requirements.txt
+
+# Optional semantic embeddings. Downloads pretrained weights only when explicitly enabled.
+sentence-transformers>=3
