@@ -1,0 +1,27 @@
+# Downloaded data and generated datasets
+/data/*
+!/data/README.md
+
+# Local environments, execution dependencies, and caches
+.venv/
+venv/
+.analysis_deps/
+.analysis_cache/
+.ipynb_checkpoints/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Local notebook construction/verification helpers
+/revise_data_exp.py
+/run_notebook_check.py
+
+# Credentials and local configuration
+.env
+.env.*
+!.env.example
+
+# Operating-system files
+.DS_Store
+Thumbs.db
+desktop.ini
