@@ -90,3 +90,5 @@ The source dataset is licensed under [CC BY 4.0](https://creativecommons.org/lic
 The [analysis report](reports/fmucd_analysis_report.md) summarizes the completed runs. The best validation candidate was full-feature Extra Trees (RMSE 24.94 elapsed days). Adding text-family labels reduced MSE by approximately 0.4% relative to the same model without family labels. This is a small validation gain, with no completed final-test result.
 
 The completed embedding run used TF-IDF/SVD. The latest exploration code removes added field labels from concatenated text while retaining the original work, system, subsystem, and component descriptions. That text change has not been rerun through the pipeline, so the saved results and report describe the previous labeled-text run.
+
+The [ten-minute interview deck](presentations/fmucd_results_draft.pptx) and [speaker notes](presentations/speaker_notes.md) summarize the pilot results.
