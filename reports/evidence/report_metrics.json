@@ -1,0 +1,96 @@
+{
+  "provenance": "All saved source, embedding, family, and modeling fingerprints verified.",
+  "relative_mse_reductions": {
+    "global_mean": 0.3807793668348953,
+    "global_median": 0.20444726817538605,
+    "full__extra_trees": 0.003994120724566508,
+    "existing_classes__extra_trees": 0.10279427292918808
+  },
+  "validation_error": {
+    "rows": 10000,
+    "mean_error_days": 0.2968204724451721,
+    "median_absolute_error": 9.614185011658716,
+    "p90_absolute_error": 34.03417709076682,
+    "actual_mean": 21.0195,
+    "predicted_mean": 21.31632047244517,
+    "actual_median": 10.0,
+    "predicted_median": 15.414570706262147,
+    "actual_p99": 121.0,
+    "actual_max": 233.0
+  },
+  "validation_tail": {
+    "threshold_days": 61.0,
+    "rows": 1010,
+    "share_squared_error": 0.6276727654118085,
+    "tail_bias_days": -44.082763036767446,
+    "tail_mae_days": 47.78985265655719
+  },
+  "sampled_target_shift": {
+    "training_mean": 36.76323664074074,
+    "training_median": 16.0,
+    "training_p99": 350.0099999999984,
+    "training_max": 5239.0,
+    "validation_mean": 21.0195,
+    "validation_median": 10.0
+  },
+  "cluster_distribution": {
+    "aggregate_only": {
+      "training_tasks_assigned": 467618,
+      "largest_training_cluster": 186189,
+      "largest_training_cluster_share": 0.39816474130593776,
+      "smallest_training_cluster": 2688,
+      "single_university_tasks": 467291,
+      "university_purity_single_university_tasks": 0.6838158663445262,
+      "university_nmi_single_university_tasks": 0.5821765433639002,
+      "component_nmi": 0.08411238223348297
+    },
+    "combined_context": {
+      "training_tasks_assigned": 467618,
+      "largest_training_cluster": 50138,
+      "largest_training_cluster_share": 0.10721999580854458,
+      "smallest_training_cluster": 3791,
+      "single_university_tasks": 467291,
+      "university_purity_single_university_tasks": 0.6783845612263022,
+      "university_nmi_single_university_tasks": 0.4548248997705586,
+      "component_nmi": 0.4704504550433647
+    },
+    "text_context": {
+      "training_tasks_assigned": 467618,
+      "largest_training_cluster": 65835,
+      "largest_training_cluster_share": 0.14078799361872296,
+      "smallest_training_cluster": 4882,
+      "single_university_tasks": 467291,
+      "university_purity_single_university_tasks": 0.3590631961668425,
+      "university_nmi_single_university_tasks": 0.1004906215662688,
+      "component_nmi": 0.7954860463915568
+    },
+    "text_wo": {
+      "training_tasks_assigned": 467382,
+      "largest_training_cluster": 52961,
+      "largest_training_cluster_share": 0.11331416271914622,
+      "smallest_training_cluster": 6238,
+      "single_university_tasks": 467058,
+      "university_purity_single_university_tasks": 0.4427330224511731,
+      "university_nmi_single_university_tasks": 0.16269286439576053,
+      "component_nmi": 0.25381452734711824
+    }
+  },
+  "aggregate_features": {
+    "tasks": 467618,
+    "median_building_size_missing_fraction": 0.7247133343883255,
+    "one_observation_share": 0.9683887275511208,
+    "distinct_numeric_profiles": 5860,
+    "multi_university_task_count": 327
+  },
+  "exclusions": {
+    "Included": 1510811,
+    "Missing/invalid duration": 1373390,
+    "Repeated university/order ID": 276322,
+    "Outcome unavailable at split cutoff": 57703,
+    "Missing/inconsistent dates": 29358,
+    "Missing university/order ID": 816,
+    "Missing work description": 497
+  },
+  "test_result_saved": false,
+  "validation_only": true
+}

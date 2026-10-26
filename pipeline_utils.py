@@ -58,19 +58,41 @@ def safe_run_name(value):
 
 
 def write_vector_batches(path, texts, transform, dimensions, batch_size):
-    """Write vectors without keeping a second full matrix in memory."""
+    """Write and close a temporary matrix before replacing the destination."""
+    import tempfile
     import numpy as np
-    vectors = np.lib.format.open_memmap(path, mode='w+', dtype='float32',
-                                       shape=(len(texts), dimensions))
-    zero_rows = 0
-    for start in range(0, len(texts), batch_size):
-        batch = np.asarray(transform(texts.iloc[start:start+batch_size].tolist()), dtype=np.float32)
-        if not np.isfinite(batch).all():
-            raise ValueError('Embedding batch contains nonfinite values.')
-        zero_rows += int((np.linalg.norm(batch, axis=1) < 1e-8).sum())
-        vectors[start:start+len(batch)] = batch
-    vectors.flush()
-    return {'file': Path(path).name, 'dimensions': int(dimensions),
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    if len(texts) == 0 or dimensions < 1 or batch_size < 1:
+        raise ValueError('Text count, dimensions, and batch size must be positive.')
+    with tempfile.NamedTemporaryFile(dir=path.parent, prefix=path.stem + '_',
+                                     suffix='.tmp.npy', delete=False) as temporary:
+        temporary_path = Path(temporary.name)
+    try:
+        vectors = np.lib.format.open_memmap(temporary_path, mode='w+', dtype='float32',
+                                           shape=(len(texts), dimensions))
+        zero_rows = 0
+        try:
+            for start in range(0, len(texts), batch_size):
+                batch_texts = texts.iloc[start:start+batch_size].tolist()
+                batch = np.asarray(transform(batch_texts), dtype=np.float32)
+                if batch.shape != (len(batch_texts), dimensions) or not np.isfinite(batch).all():
+                    raise ValueError('Embedding batch has an invalid shape or nonfinite values.')
+                zero_rows += int((np.linalg.norm(batch, axis=1) < 1e-8).sum())
+                vectors[start:start+len(batch)] = batch
+            vectors.flush()
+        finally:
+            vectors._mmap.close()
+        try:
+            os.replace(temporary_path, path)
+        except OSError as error:
+            raise OSError(error.errno,
+                'Cannot replace the embedding file. Close or restart notebook kernels that loaded '
+                'it with mmap_mode, or choose a new RUN_NAME. The existing file was not truncated.',
+                str(path)) from error
+    finally:
+        temporary_path.unlink(missing_ok=True)
+    return {'file': path.name, 'dimensions': int(dimensions),
             'rows': len(texts), 'zero_vector_rows': zero_rows}
 
 

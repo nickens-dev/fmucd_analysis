@@ -22,11 +22,11 @@ The notebook also creates description-only text, descriptions combined with clas
 | Notebook | Purpose | Status |
 | --- | --- | --- |
 | [`data_exp.ipynb`](data_exp.ipynb) | Explore, audit, and export task/work-order datasets. | Exploratory analysis |
-| [`embedding.ipynb`](embedding.ipynb) | Compare work-description and context-enhanced text vectors. | Review draft; execution disabled by default |
-| [`clustering.ipynb`](clustering.ipynb) | Compare text, aggregate, and combined task families. | Review draft; execution disabled by default |
-| [`modeling.ipynb`](modeling.ipynb) | Compare duration baselines and models with/without family labels. | Review draft; execution and final test disabled by default |
+| [`embedding.ipynb`](embedding.ipynb) | Compare work-description and context-enhanced text vectors. | Pilot run completed |
+| [`clustering.ipynb`](clustering.ipynb) | Compare text, aggregate, and combined task families. | Pilot run completed |
+| [`modeling.ipynb`](modeling.ipynb) | Compare duration baselines and models with/without family labels. | Validation pilot completed; final test pending |
 
-Run the notebooks in this order. The three review drafts display their plans without starting expensive jobs. Set their `RUN_*` switches when ready, using the same upstream run names. Choose a new run name for each experiment; overwriting requires an explicit switch. Generated artifacts go under `data/embeddings/`, `data/families/`, and `data/modeling/` and remain outside Git.
+Run the notebooks in this order. Review the `RUN_*` switches before execution and use matching upstream run names. Saved notebook outputs document the pilot runs. Choose a new run name for each experiment; overwriting requires an explicit switch. Generated artifacts go under `data/embeddings/`, `data/families/`, and `data/modeling/` and remain outside Git.
 
 The default embedding backend is a local TF-IDF/SVD baseline. For pretrained semantic embeddings, install `requirements-embeddings.txt` and select the sentence-transformer backend. Model downloads require an explicit configuration change. Duration models initially use bounded samples; the manifests record sample sizes. Optional ANN fitting and final test evaluation require separate switches.
 
@@ -43,7 +43,7 @@ The notebooks use short code cells, direct tables/plots, and brief purpose/resul
 - Examine performance for common, rare, and previously unseen work types.
 - Extend the analysis to other manufacturing and process questions supported by the data.
 
-These are research directions, not completed results. The current target, `WODuration`, measures **elapsed days**, including potential waiting and administrative delays. It does not measure hands-on labor time.
+The pilot covers embeddings, clustering, and validation modeling. Further comparisons and final test evaluation remain open. The current target, `WODuration`, measures **elapsed days**, including potential waiting and administrative delays. It does not measure hands-on labor time.
 
 ## Getting started
 
@@ -84,3 +84,9 @@ Missing durations, repeated order IDs, sparse descriptions, and differences in u
 Pampana, Ashish Kumar; Jeon, JungHo; Yoon, Soojin; Weidner, Theodore (2024). *Facility Management Unified Classification Database (FMUCD)*. Mendeley Data, V1. [doi:10.17632/cb8d2nsjss.1](https://doi.org/10.17632/cb8d2nsjss.1).
 
 The source dataset is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). This project cleans and derives features from that dataset. See the [accompanying paper](https://doi.org/10.1016/j.dib.2024.110845) for its original collection methods and field definitions.
+
+## Pilot results and current changes
+
+The [analysis report](reports/fmucd_analysis_report.md) summarizes the completed runs. The best validation candidate was full-feature Extra Trees (RMSE 24.94 elapsed days). Adding text-family labels reduced MSE by approximately 0.4% relative to the same model without family labels. This is a small validation gain, with no completed final-test result.
+
+The completed embedding run used TF-IDF/SVD. The latest exploration code removes added field labels from concatenated text while retaining the original work, system, subsystem, and component descriptions. That text change has not been rerun through the pipeline, so the saved results and report describe the previous labeled-text run.
